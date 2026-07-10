@@ -1,6 +1,6 @@
 # মা আসছেন — Durga Puja 2026 Countdown
 
-A polished Bengali festival countdown web app for Durga Puja 2026 and Mahalaya 2026. The app combines a live countdown, animated Durga Puja-inspired visuals, dhol animation, optional devotional audio, and a distraction-free full-screen festival experience.
+A polished Bengali festival countdown web app for Durga Puja 2026 and Mahalaya 2026. The app combines a live countdown, animated Durga Puja-inspired visuals, dhol animation, optional devotional audio, and installable PWA metadata.
 
 ## ✨ Features
 
@@ -11,7 +11,7 @@ A polished Bengali festival countdown web app for Durga Puja 2026 and Mahalaya 2
 - Animated background with particles, diyas, shiuli flowers, alpana details, smoke, and festive decorations.
 - Dhol player animation built with SVG and Framer Motion.
 - Optional looping audio control using `public/shuvo_shuvo.mp3`.
-- Install prompts are intentionally disabled so visitors are not interrupted by browser install banners.
+- PWA manifest and production-only service worker registration, with the automatic install prompt suppressed.
 - Responsive layout for mobile, tablet, and desktop screens.
 
 ## 🧰 Tech Stack
@@ -36,11 +36,13 @@ components/
   AudioControl.tsx
   CountdownCard.tsx
   DholPlayer.tsx
-  DisableInstallPrompt.tsx
+  PWAInstallPrompt.tsx
 public/
   bg_image.png      Main background image
   icon.png          App icon
+  manifest.json     PWA manifest
   shuvo_shuvo.mp3   Audio track
+  sw.js             Production service worker
 ```
 
 ## 🚀 Getting Started
@@ -84,13 +86,13 @@ pnpm lint
 
 ## 🛠️ Notes for Development
 
-Browser install prompts and stale service workers are disabled. This avoids install popups and stale cached Next.js development chunks that can trigger HMR issues such as:
+The app keeps its PWA manifest and production service worker, but suppresses the browser's automatic install prompt so visitors do not see an Install/Not Now dialog. Development still unregisters stale service workers to avoid cached Next.js chunks and HMR issues such as:
 
 ```text
 Internal Next.js error: Router action dispatched before initialization.
 ```
 
-If you previously opened an older build in the same browser and still see an install prompt, clear site data once from DevTools → Application → Storage.
+If you previously opened an older development build in the same browser, clear site data once or unregister any old service worker from DevTools → Application → Service Workers.
 
 ## 🎨 Customization
 
@@ -98,7 +100,7 @@ If you previously opened an older build in the same browser and still see an ins
 - Replace `public/bg_image.png` to change the main background artwork.
 - Replace `public/shuvo_shuvo.mp3` to change the audio track.
 - Adjust colors and tokens in `app/globals.css`.
-- Update metadata in `app/layout.tsx`.
+- Update app install metadata in `public/manifest.json` and `app/layout.tsx`.
 
 ## 📄 License
 
