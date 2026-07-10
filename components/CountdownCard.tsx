@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 
 interface CountdownValue {
   days: number;
@@ -68,7 +68,7 @@ export function CountdownCard({
     return () => clearInterval(interval);
   }, [targetDate]);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -80,7 +80,7 @@ export function CountdownCard({
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, scale: 0.5 },
     visible: (i: number) => ({
       opacity: 1,
