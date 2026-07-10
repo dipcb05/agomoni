@@ -46,7 +46,7 @@ export default function Home() {
 
         {/* Main content container - scrollable above background */}
         <motion.div
-          className="relative z-20 w-full flex flex-col items-center px-4 sm:px-6 lg:px-8 py-16 md:py-24 space-y-12"
+          className="relative z-20 w-full flex flex-col items-center px-3 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-20 space-y-8 sm:space-y-10"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -54,11 +54,11 @@ export default function Home() {
         {/* Hero Section */}
         <motion.div
           variants={itemVariants}
-          className="text-center mb-8 md:mb-12"
+          className="text-center mb-6 sm:mb-8 md:mb-12"
         >
           <motion.h1
             variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-3 text-balance"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-2 sm:mb-3 text-balance"
           >
             মা আসছেন
           </motion.h1>
@@ -67,7 +67,7 @@ export default function Home() {
         {/* Dhol Player Animation */}
         <motion.div
           variants={itemVariants}
-          className="mb-12 md:mb-16"
+          className="mb-8 sm:mb-10 md:mb-16"
         >
           <DholPlayer />
         </motion.div>
@@ -75,7 +75,7 @@ export default function Home() {
         {/* Primary Countdown - Durga Puja */}
         <motion.div
           variants={itemVariants}
-          className="w-full max-w-2xl mb-8"
+          className="w-full max-w-2xl mb-6 sm:mb-8"
         >
           <CountdownCard
             title="দুর্গাপূজার আর বাকি"
@@ -86,7 +86,7 @@ export default function Home() {
         {/* Secondary Countdown - Mahalaya */}
         <motion.div
           variants={itemVariants}
-          className="w-full max-w-2xl mb-8"
+          className="w-full max-w-2xl mb-6 sm:mb-8"
         >
           <CountdownCard
             title="শুভ মহালয়া"

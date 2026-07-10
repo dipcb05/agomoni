@@ -7,13 +7,10 @@ import { Volume2, VolumeX } from 'lucide-react';
 export function AudioControl() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
 
   useEffect(() => {
-    const handleUserInteraction = () => {
-      if (!hasInteracted && audioRef.current) {
-        setHasInteracted(true);
-        // Try to play audio
+    const playAudio = () => {
+      if (audioRef.current) {
         const playPromise = audioRef.current.play();
         if (playPromise !== undefined) {
           playPromise
@@ -21,20 +18,28 @@ export function AudioControl() {
               setIsPlaying(true);
             })
             .catch(() => {
-              setIsPlaying(false);
+              // Autoplay was prevented, wait for user interaction
+              const handleInteraction = () => {
+                const playPromise2 = audioRef.current?.play();
+                if (playPromise2 !== undefined) {
+                  playPromise2
+                    .then(() => setIsPlaying(true))
+                    .catch(() => setIsPlaying(false));
+                }
+                document.removeEventListener('click', handleInteraction);
+                document.removeEventListener('touchstart', handleInteraction);
+              };
+              
+              document.addEventListener('click', handleInteraction);
+              document.addEventListener('touchstart', handleInteraction);
             });
         }
       }
     };
 
-    document.addEventListener('click', handleUserInteraction);
-    document.addEventListener('touchstart', handleUserInteraction);
-
-    return () => {
-      document.removeEventListener('click', handleUserInteraction);
-      document.removeEventListener('touchstart', handleUserInteraction);
-    };
-  }, [hasInteracted]);
+    // Try to play audio immediately
+    playAudio();
+  }, []);
 
   const toggleAudio = (e: React.MouseEvent) => {
     e.stopPropagation();
