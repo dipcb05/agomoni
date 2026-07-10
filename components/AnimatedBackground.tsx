@@ -12,7 +12,8 @@ interface Particle {
 }
 
 const generateParticles = (count: number, seed: number = 0): Particle[] => {
-  return Array.from({ length: count }).map((_, i) => {
+  const particles: Particle[] = [];
+  for (let i = 0; i < count; i++) {
     // Use deterministic values based on index instead of Math.random()
     const id = seed + i;
     const x = (id * 37.5) % 100; // Deterministic distribution
@@ -20,8 +21,9 @@ const generateParticles = (count: number, seed: number = 0): Particle[] => {
     const duration = 3 + ((id * 1.3) % 4);
     const delay = (id * 0.3) % 2;
     
-    return { id, x, y, duration, delay };
-  });
+    particles.push({ id, x, y, duration, delay });
+  }
+  return particles;
 };
 
 export function AnimatedBackground() {
@@ -34,7 +36,7 @@ export function AnimatedBackground() {
   const particles = generateParticles(15, 0);
   const diyas = generateParticles(8, 100);
   const shiuli = generateParticles(6, 200);
-  const dhunuchiSmoke = generateParticles(12, 300);
+  const dhunuchiSmoke = generateParticles(20, 300);
 
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -181,19 +183,19 @@ export function AnimatedBackground() {
             style={{
               left: `${smoke.x}%`,
               top: `${smoke.y}%`,
-              width: '40px',
-              height: '40px',
-              background: 'radial-gradient(circle, rgba(232,183,107,0.5) 0%, rgba(212,165,116,0.2) 40%, transparent 70%)',
+              width: '60px',
+              height: '60px',
+              background: 'radial-gradient(circle, rgba(232,183,107,0.7) 0%, rgba(212,165,116,0.4) 30%, rgba(164,62,49,0.2) 60%, transparent 80%)',
             }}
             animate={{
-              y: [0, -120, -240],
-              x: [0, Math.sin(smoke.id * 0.5) * 40, Math.cos(smoke.id * 0.7) * 50],
-              opacity: [0.4, 0.6, 0],
-              scale: [0.6, 1.2, 1.8],
+              y: [0, -160, -320],
+              x: [0, Math.sin(smoke.id * 0.5) * 60, Math.cos(smoke.id * 0.7) * 80],
+              opacity: [0.6, 0.8, 0],
+              scale: [0.8, 1.5, 2.2],
             }}
             transition={{
-              duration: smoke.duration + 3,
-              delay: smoke.delay,
+              duration: smoke.duration + 2,
+              delay: smoke.delay * 0.8,
               repeat: Infinity,
               ease: 'easeOut',
             }}
@@ -207,21 +209,26 @@ export function AnimatedBackground() {
           { top: '20%', left: '5%' },
           { top: '70%', right: '8%' },
           { top: '40%', right: '3%' },
+          { bottom: '10%', left: '10%' },
+          { top: '50%', right: '10%' },
         ].map((pos, i) => (
           <motion.div
             key={`smoke-${i}`}
-            className="absolute w-32 h-32 rounded-full blur-3xl pointer-events-none"
+            className="absolute rounded-full blur-3xl pointer-events-none"
             style={{
-              background: 'radial-gradient(circle, rgba(212,165,116,0.1) 0%, transparent 70%)',
+              width: i < 3 ? '40px' : '50px',
+              height: i < 3 ? '40px' : '50px',
+              background: 'radial-gradient(circle, rgba(232,183,107,0.25) 0%, rgba(212,165,116,0.15) 40%, transparent 75%)',
               ...pos,
             }}
             animate={{
-              opacity: [0.2, 0.5, 0.2],
-              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.7, 0.2],
+              scale: [1, 1.4, 0.9],
+              y: [0, -20, 0],
             }}
             transition={{
-              duration: 5 + i,
-              delay: i * 0.5,
+              duration: 4 + i * 0.5,
+              delay: i * 0.3,
               repeat: Infinity,
               ease: 'easeInOut',
             }}
