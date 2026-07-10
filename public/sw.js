@@ -1,80 +1,75 @@
-const CACHE_NAME = 'durga-puja-v1';
-const ASSETS_TO_CACHE = [
-  '/',
-  '/manifest.json',
+const CACHE_NAME = 'durga-puja-v2';
+const ASSETS_TO_CACHE = ['/', '/manifest.json', '/icon.png'];
+const SHOULD_NEVER_CACHE = [
+  '/_next/',
+  '/__nextjs_',
+  '/api/',
+  '/webpack-hmr',
 ];
 
-// Install event - cache assets
+const isCacheableRequest = (request) => {
+  if (request.method !== 'GET') {
+    return false;
+  }
+
+  const url = new URL(request.url);
+
+  if (url.origin !== self.location.origin) {
+    return false;
+  }
+
+  return !SHOULD_NEVER_CACHE.some((path) => url.pathname.includes(path));
+};
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE).catch(() => {
-        // It's OK if some assets fail to cache
-        console.log('Some assets failed to cache');
-      });
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS_TO_CACHE))
   );
   self.skipWaiting();
 });
 
-// Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches
+      .keys()
+      .then((cacheNames) =>
+        Promise.all(
+          cacheNames.map((cacheName) => {
+            if (cacheName !== CACHE_NAME) {
+              return caches.delete(cacheName);
+            }
+
+            return undefined;
+          })
+        )
+      )
+      .then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
-// Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', (event) => {
   const { request } = event;
 
-  // Skip non-GET requests
-  if (request.method !== 'GET') {
-    return;
-  }
-
-  // Skip API requests - always fetch from network
-  if (request.url.includes('/api/')) {
+  if (!isCacheableRequest(request)) {
     return;
   }
 
   event.respondWith(
-    caches.match(request).then((response) => {
-      // Serve from cache if available
-      if (response) {
-        return response;
+    caches.match(request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
       }
 
-      // Otherwise, fetch from network and cache
-      return fetch(request)
-        .then((response) => {
-          // Only cache successful responses
-          if (!response || response.status !== 200 || response.type === 'error') {
-            return response;
-          }
+      return fetch(request).then((networkResponse) => {
+        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type === 'error') {
+          return networkResponse;
+        }
 
-          // Clone the response
-          const responseToCache = response.clone();
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(request, responseToCache));
 
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, responseToCache);
-          });
-
-          return response;
-        })
-        .catch(() => {
-          // Return cached version if available, otherwise return nothing
-          return caches.match(request);
-        });
+        return networkResponse;
+      });
     })
   );
 });

@@ -4,14 +4,24 @@ import { useEffect } from 'react';
 
 export function PWAInstallPrompt() {
   useEffect(() => {
-    // Register service worker only
+    const isProduction = process.env.NODE_ENV === 'production';
+
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').catch((error) => {
-        console.log('Service Worker registration failed:', error);
-      });
+      if (isProduction) {
+        navigator.serviceWorker.register('/sw.js').catch((error) => {
+          console.log('Service Worker registration failed:', error);
+        });
+      } else {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          registrations.forEach((registration) => {
+            if (registration.active?.scriptURL.endsWith('/sw.js')) {
+              registration.unregister();
+            }
+          });
+        });
+      }
     }
 
-    // Prevent the install prompt from showing
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
     };
@@ -23,6 +33,5 @@ export function PWAInstallPrompt() {
     };
   }, []);
 
-  // Component returns null - just handles service worker registration
   return null;
 }

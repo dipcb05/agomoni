@@ -40,6 +40,15 @@ export default function RootLayout({
   return (
     <html lang="bn" className="bg-background scroll-smooth">
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('beforeinstallprompt', function (event) {
+                event.preventDefault();
+              });
+            `,
+          }}
+        />
         <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

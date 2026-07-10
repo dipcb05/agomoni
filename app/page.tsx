@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { CountdownCard } from '@/components/CountdownCard';
 import { AudioControl } from '@/components/AudioControl';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
@@ -12,7 +12,7 @@ export default function Home() {
   // Mahalaya 2026: October 10, 2026
   const mahalayaDate = new Date('2026-10-10T00:00:00');
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -23,7 +23,7 @@ export default function Home() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,

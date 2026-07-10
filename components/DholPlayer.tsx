@@ -1,10 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 
 export function DholPlayer() {
   // Animation for drumstick hits with beat pattern
-  const drumBeatPattern = {
+  const drumBeatPattern: Variants = {
     animate: (side: 'left' | 'right') => ({
       rotate: side === 'left' 
         ? [0, -35, -10, -40, -5, 0]
