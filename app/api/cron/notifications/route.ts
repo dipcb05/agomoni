@@ -27,7 +27,7 @@ export async function GET(request: Request) {
   const notification = getDailyNotification()
 
   if (!notification) {
-    return NextResponse.json({ ok: true, skipped: true, reason: 'Not the 10th or 16th in Bangladesh time' })
+    return NextResponse.json({ ok: true, skipped: true, reason: 'Not the 10th or 18th in Bangladesh time' })
   }
 
   const tokens = await getNotificationTokens()

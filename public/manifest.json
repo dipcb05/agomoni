@@ -1,7 +1,7 @@
 {
-  "name": "আগমনী",
-  "short_name": "আগমনী",
-  "description": "A countdown app to Durga Puja 2026 and Mahalaya! মা আসছেন।",
+  "name": "agomoni",
+  "short_name": "agomoni",
+  "description": "agomoni is a fast Durga Puja 2026 countdown for Mahalaya and October 18, 2026.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -16,7 +16,11 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["lifestyle", "entertainment", "culture"],
+  "categories": [
+    "lifestyle",
+    "entertainment",
+    "culture"
+  ],
   "screenshots": [
     {
       "src": "/icon.png",
@@ -33,9 +37,9 @@
   ],
   "shortcuts": [
     {
-      "name": "Agomoni",
-      "short_name": "Agomoni",
-      "description": "Agomoni",
+      "name": "agomoni",
+      "short_name": "agomoni",
+      "description": "Open agomoni",
       "url": "/",
       "icons": [
         {

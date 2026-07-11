@@ -1,6 +1,6 @@
 const FESTIVALS = [
   { name: 'Mahalaya', date: '2026-10-10T00:00:00+06:00' },
-  { name: 'Durga Puja', date: '2026-10-16T00:00:00+06:00' },
+  { name: 'Durga Puja', date: '2026-10-18T00:00:00+06:00' },
 ]
 
 const banglaMonthCount = (months: number) => {
@@ -21,7 +21,7 @@ export const getDailyNotification = (now = new Date()) => {
   )
   const dayOfMonth = bangladeshDate.getDate()
 
-  if (dayOfMonth !== 10 && dayOfMonth !== 16) {
+  if (dayOfMonth !== 10 && dayOfMonth !== 18) {
     return null
   }
 
@@ -45,7 +45,7 @@ export const getDailyNotification = (now = new Date()) => {
   })
 
   return {
-    title: 'মা আসছেন',
+    title: 'agomoni',
     body: lines.join(' • '),
   }
 }
