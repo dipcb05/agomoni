@@ -1,6 +1,6 @@
-# Durga Puja 2026 Countdown
+# Agomoni
 
-A Bengali festival countdown web app for Durga Puja 2026.
+A countdown web app for Durga Puja 2026, a reknown bengali festival.
 
 ## Features
 
