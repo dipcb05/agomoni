@@ -1,4 +1,4 @@
-const CACHE_NAME = 'durga-puja-v2';
+const CACHE_NAME = 'durga-puja-v3';
 const ASSETS_TO_CACHE = ['/', '/manifest.json', '/icon.png'];
 const SHOULD_NEVER_CACHE = [
   '/_next/',
