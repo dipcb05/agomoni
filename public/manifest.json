@@ -1,7 +1,7 @@
 {
-  "name": "মা আসছেন | Durga Puja 2026 Countdown",
-  "short_name": "মা আসছেন",
-  "description": "A sweet, festive countdown to Durga Puja 2026 and Mahalaya — feel the dhak, devotion, lights, and joy as Maa Durga comes home. মা আসছেন।",
+  "name": "আগমনী",
+  "short_name": "আগমনী",
+  "description": "A countdown app to Durga Puja 2026 and Mahalaya! মা আসছেন।",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -33,9 +33,9 @@
   ],
   "shortcuts": [
     {
-      "name": "Open Durga Puja Countdown",
-      "short_name": "Countdown",
-      "description": "Open the Durga Puja 2026 countdown.",
+      "name": "Agomoni",
+      "short_name": "Agomoni",
+      "description": "Agomoni",
       "url": "/",
       "icons": [
         {

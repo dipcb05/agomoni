@@ -13,7 +13,7 @@ export function Footer() {
         </a>
         . You can contribute there{' '}
         <a
-          href="https://github.com/dipcb05/durgapuja26_countdown.git"
+          href="https://github.com/dipcb05/agomoni.git"
           target="_blank"
           rel="noreferrer"
           className="font-medium text-primary underline-offset-4 transition-colors hover:text-accent hover:underline"

@@ -3,9 +3,9 @@ import type { Metadata, Viewport } from 'next'
 import { PWAInstallPrompt } from '@/components/PWAInstallPrompt'
 import './globals.css'
 
-const siteTitle = 'মা আসছেন | Durga Puja 2026 Countdown'
+const siteTitle = 'আগমনী'
 const siteDescription =
-  'A sweet, festive countdown to Durga Puja 2026 and Mahalaya — feel the dhak, devotion, lights, and joy as Maa Durga comes home. মা আসছেন।'
+  'A countdown app to Durga Puja 2026 and Mahalaya! মা আসছেন!'
 const siteImage = '/icon.png'
 
 export const metadata: Metadata = {
@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   generator: 'Next.js',
   manifest: '/manifest.json',
   keywords: [
+    'agomoni',
+    'আগমনী',
     'Durga Puja 2026',
     'Durga Puja countdown',
     'Mahalaya 2026',
@@ -26,9 +28,9 @@ export const metadata: Metadata = {
     'দুর্গাপূজা ২০২৬',
     'Bengali festival countdown',
   ],
-  authors: [{ name: 'মা আসছেন' }],
-  creator: 'মা আসছেন',
-  publisher: 'মা আসছেন',
+  authors: [{ name: 'Dip Chakraborty' }],
+  creator: 'Dip Chakraborty',
+  publisher: 'Dip Chakraborty',
   category: 'festival countdown',
   alternates: {
     canonical: '/',
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: '/',
-    siteName: 'মা আসছেন',
+    siteName: 'agomoni',
     title: siteTitle,
     description: siteDescription,
     locale: 'bn_BD',
@@ -45,7 +47,7 @@ export const metadata: Metadata = {
         url: siteImage,
         width: 1024,
         height: 1024,
-        alt: 'মা আসছেন - Durga Puja 2026 Countdown',
+        alt: 'Agomoni',
       },
     ],
   },
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'মা আসছেন',
+    title: 'Agomoni',
   },
   formatDetection: {
     telephone: false,
@@ -100,7 +102,7 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteTitle,
-    alternateName: ['মা আসছেন', 'Durga Puja 2026 Countdown'],
+    alternateName: ['Agomoni'],
     description: siteDescription,
     url: 'https://agomoni.vercel.app',
     image: siteImage,
