@@ -12,7 +12,7 @@ A polished Bengali festival countdown web app for Durga Puja 2026 and Mahalaya 2
 - Dhol player animation built with SVG and Framer Motion.
 - Optional looping audio control using `public/shuvo_shuvo.mp3`.
 - PWA manifest and production-only service worker registration, with the automatic install prompt suppressed.
-- Firebase Cloud Messaging reminders for monthly Mahalaya and Puja countdown nudges.
+- Firebase Cloud Messaging reminders for monthly Mahalaya and Puja countdown nudges, with an IndexedDB-backed auto prompt attempt for visitors who have not blocked notifications.
 - Responsive layout for mobile, tablet, and desktop screens.
 
 ## 🧰 Tech Stack

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Bell, BellRing } from 'lucide-react'
 
 declare global {
@@ -17,6 +17,17 @@ declare global {
     }
   }
 }
+
+interface NotificationPromptState {
+  firstVisitedAt: string
+  lastPromptedAt?: string
+  promptCount: number
+  deniedAt?: string
+}
+
+const PROMPT_DB_NAME = 'agomoni-notifications'
+const PROMPT_STORE_NAME = 'prompt-state'
+const PROMPT_STATE_KEY = 'fcm-permission'
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || '',
@@ -53,13 +64,82 @@ const hasFirebaseConfig = () =>
       process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY
   )
 
+const openPromptDatabase = () =>
+  new Promise<IDBDatabase>((resolve, reject) => {
+    const request = indexedDB.open(PROMPT_DB_NAME, 1)
+
+    request.onupgradeneeded = () => {
+      request.result.createObjectStore(PROMPT_STORE_NAME)
+    }
+    request.onsuccess = () => resolve(request.result)
+    request.onerror = () => reject(request.error)
+  })
+
+const readPromptState = async () => {
+  const database = await openPromptDatabase()
+
+  return new Promise<NotificationPromptState | undefined>((resolve, reject) => {
+    const transaction = database.transaction(PROMPT_STORE_NAME, 'readonly')
+    const store = transaction.objectStore(PROMPT_STORE_NAME)
+    const request = store.get(PROMPT_STATE_KEY)
+
+    request.onsuccess = () => resolve(request.result as NotificationPromptState | undefined)
+    request.onerror = () => reject(request.error)
+    transaction.oncomplete = () => database.close()
+  })
+}
+
+const writePromptState = async (state: NotificationPromptState) => {
+  const database = await openPromptDatabase()
+
+  return new Promise<void>((resolve, reject) => {
+    const transaction = database.transaction(PROMPT_STORE_NAME, 'readwrite')
+    const store = transaction.objectStore(PROMPT_STORE_NAME)
+    const request = store.put(state, PROMPT_STATE_KEY)
+
+    request.onerror = () => reject(request.error)
+    transaction.oncomplete = () => {
+      database.close()
+      resolve()
+    }
+    transaction.onerror = () => reject(transaction.error)
+  })
+}
+
+const trackPromptAttempt = async (permission: NotificationPermission) => {
+  const now = new Date().toISOString()
+  const currentState = await readPromptState()
+
+  await writePromptState({
+    firstVisitedAt: currentState?.firstVisitedAt || now,
+    lastPromptedAt: permission === 'default' ? now : currentState?.lastPromptedAt,
+    promptCount: permission === 'default' ? (currentState?.promptCount || 0) + 1 : currentState?.promptCount || 0,
+    deniedAt: permission === 'denied' ? now : currentState?.deniedAt,
+  })
+}
+
+const safelyTrackPromptAttempt = async (permission: NotificationPermission) => {
+  try {
+    await trackPromptAttempt(permission)
+  } catch (error) {
+    console.error('Unable to track notification prompt state', error)
+  }
+}
+
 export function NotificationSubscribe() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'enabled' | 'unsupported' | 'error'>(
     'idle'
   )
+  const autoPromptStarted = useRef(false)
 
-  const enableNotifications = async () => {
+  const enableNotifications = useCallback(async () => {
     if (!hasFirebaseConfig() || !('Notification' in window) || !('serviceWorker' in navigator)) {
+      setStatus('unsupported')
+      return
+    }
+
+    if (Notification.permission === 'denied') {
+      await safelyTrackPromptAttempt('denied')
       setStatus('unsupported')
       return
     }
@@ -67,7 +147,12 @@ export function NotificationSubscribe() {
     setStatus('loading')
 
     try {
+      await safelyTrackPromptAttempt(Notification.permission)
       const permission = await Notification.requestPermission()
+
+      if (permission === 'denied') {
+        await safelyTrackPromptAttempt('denied')
+      }
 
       if (permission !== 'granted') {
         setStatus('unsupported')
@@ -110,7 +195,29 @@ export function NotificationSubscribe() {
       console.error('Notification subscription failed', error)
       setStatus('error')
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    if (autoPromptStarted.current || !hasFirebaseConfig() || !('Notification' in window)) {
+      return
+    }
+
+    if (Notification.permission === 'denied') {
+      autoPromptStarted.current = true
+      void safelyTrackPromptAttempt('denied')
+      setStatus('unsupported')
+      return
+    }
+
+    if (Notification.permission === 'granted') {
+      autoPromptStarted.current = true
+      void enableNotifications()
+      return
+    }
+
+    autoPromptStarted.current = true
+    void enableNotifications()
+  }, [enableNotifications])
 
   return (
     <div className="fixed bottom-8 left-8 z-50 max-w-[calc(100vw-8rem)]">
