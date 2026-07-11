@@ -68,6 +68,7 @@ export function AudioControl() {
         ref={audioRef}
         src="/shuvo_shuvo.mp3"
         loop
+        preload="none"
         crossOrigin="anonymous"
       />
 

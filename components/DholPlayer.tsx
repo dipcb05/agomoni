@@ -32,7 +32,7 @@ export function DholPlayer() {
       transition={{ duration: 0.8, delay: 0.3 }}
     >
       {/* Dhunuchi smoke effect behind dhol */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 hidden sm:flex items-center justify-center">
         {smokePuffs.map((puff) => (
           <motion.div
             key={`smoke-${puff.id}`}
@@ -60,7 +60,7 @@ export function DholPlayer() {
         ))}
       </div>
 
-      <div className="relative w-56 h-56 flex items-center justify-center">
+      <div className="relative w-40 h-40 sm:w-56 sm:h-56 flex items-center justify-center">
         {/* Dhol drum body - more detailed */}
         <svg
           className="absolute w-full h-full text-primary"
@@ -214,7 +214,7 @@ export function DholPlayer() {
 
         {/* Impact glow on drum hit */}
         <motion.div
-          className="absolute top-1/3 left-1/2 -translate-x-1/2"
+          className="absolute top-1/3 left-1/2 hidden sm:block -translate-x-1/2"
           animate={{
             opacity: [0, 0.8, 0],
             scale: [0.8, 1.3, 0.8],
@@ -233,7 +233,7 @@ export function DholPlayer() {
 
         {/* Main pulsing glow effect */}
         <motion.div
-          className="absolute inset-0 rounded-full blur-3xl"
+          className="absolute inset-0 hidden sm:block rounded-full blur-3xl"
           style={{
             background: 'radial-gradient(circle, rgba(212,165,116,0.25) 0%, transparent 75%)',
           }}

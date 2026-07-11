@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 
 interface CountdownValue {
@@ -30,20 +30,13 @@ export function CountdownCard({
 
   const [mounted, setMounted] = useState(false);
 
+  const targetTime = useMemo(() => targetDate.getTime(), [targetDate]);
+
   useEffect(() => {
     setMounted(true);
 
     const calculateCountdown = () => {
-      // Create dates in Asia/Dhaka timezone
-      const now = new Date();
-      const dhakaNow = new Date(
-        now.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })
-      );
-      const dhakaBerlin = new Date(
-        targetDate.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })
-      );
-
-      const difference = dhakaBerlin.getTime() - dhakaNow.getTime();
+      const difference = targetTime - Date.now();
 
       if (difference <= 0) {
         setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
@@ -66,7 +59,7 @@ export function CountdownCard({
     const interval = setInterval(calculateCountdown, 1000);
 
     return () => clearInterval(interval);
-  }, [targetDate]);
+  }, [targetTime]);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
@@ -104,7 +97,7 @@ export function CountdownCard({
       animate="visible"
       className="w-full"
     >
-      <div className="backdrop-blur-md bg-card/40 border border-border rounded-2xl p-8 md:p-10 hover:border-primary/40 transition-colors duration-300">
+      <div className="bg-card/75 sm:backdrop-blur-md border border-border rounded-2xl p-5 sm:p-8 md:p-10 hover:border-primary/40 transition-colors duration-300">
         {/* Title Section */}
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2 text-balance">
@@ -133,7 +126,7 @@ export function CountdownCard({
               animate="visible"
               className="relative"
             >
-              <div className="backdrop-blur-sm bg-background/50 border border-primary/20 rounded-lg p-3 md:p-4 text-center group hover:border-primary/40 transition-all duration-300">
+              <div className="bg-background/65 sm:backdrop-blur-sm border border-primary/20 rounded-lg p-3 md:p-4 text-center group hover:border-primary/40 transition-colors duration-300">
                 {/* Glow effect on hover */}
                 <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl bg-primary/20" />
 

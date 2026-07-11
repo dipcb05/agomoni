@@ -5,12 +5,14 @@ import { CountdownCard } from '@/components/CountdownCard';
 import { AudioControl } from '@/components/AudioControl';
 import { AnimatedBackground } from '@/components/AnimatedBackground';
 import { DholPlayer } from '@/components/DholPlayer';
+import { NotificationSubscribe } from '@/components/NotificationSubscribe';
+import { Footer } from '@/components/Footer';
 
 export default function Home() {
-  // Durga Puja 2026: October 16, 2026
-  const durgaPujaDate = new Date('2026-10-16T00:00:00');
+  // Durga Puja 2026: October 18, 2026
+  const durgaPujaDate = new Date('2026-10-18T00:00:00+06:00');
   // Mahalaya 2026: October 10, 2026
-  const mahalayaDate = new Date('2026-10-10T00:00:00');
+  const mahalayaDate = new Date('2026-10-10T00:00:00+06:00');
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -43,6 +45,7 @@ export default function Home() {
       <main className="relative min-h-screen w-full overflow-x-hidden">
         {/* Audio control */}
         <AudioControl />
+        <NotificationSubscribe />
 
         {/* Main content container - scrollable above background */}
         <motion.div
@@ -97,9 +100,11 @@ export default function Home() {
 
       </motion.div>
 
+      <Footer />
+
       {/* Conch shell decoration - top left */}
       <motion.div
-        className="fixed top-12 left-4 sm:left-8 text-3xl sm:text-4xl md:text-5xl opacity-20 pointer-events-none"
+        className="fixed top-12 left-4 sm:left-8 hidden sm:block text-3xl sm:text-4xl md:text-5xl opacity-20 pointer-events-none will-change-transform"
         animate={{
           rotate: [0, -5, 5, 0],
           y: [0, -10, 10, 0],
@@ -115,7 +120,7 @@ export default function Home() {
 
       {/* Temple bell - top right */}
       <motion.div
-        className="fixed top-12 right-4 sm:right-8 text-3xl sm:text-4xl md:text-5xl opacity-20 pointer-events-none"
+        className="fixed top-12 right-4 sm:right-8 hidden sm:block text-3xl sm:text-4xl md:text-5xl opacity-20 pointer-events-none will-change-transform"
         animate={{
           rotate: [0, 5, -5, 0],
           y: [0, -10, 10, 0],
@@ -132,7 +137,7 @@ export default function Home() {
 
       {/* Incense/dhunuchi - bottom left */}
       <motion.div
-        className="fixed bottom-20 left-8 text-3xl md:text-4xl opacity-20 pointer-events-none"
+        className="fixed bottom-20 left-8 hidden sm:block text-3xl md:text-4xl opacity-20 pointer-events-none will-change-transform"
         animate={{
           x: [-5, 5, -5],
           y: [-5, 0, -5],
@@ -148,7 +153,7 @@ export default function Home() {
 
       {/* Marigold garland - bottom right */}
       <motion.div
-        className="fixed bottom-20 right-8 text-3xl md:text-4xl opacity-20 pointer-events-none"
+        className="fixed bottom-20 right-8 hidden sm:block text-3xl md:text-4xl opacity-20 pointer-events-none will-change-transform"
         animate={{
           x: [5, -5, 5],
           y: [-5, 0, -5],
