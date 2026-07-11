@@ -1,5 +1,5 @@
-const CACHE_NAME = 'durga-puja-v3';
-const ASSETS_TO_CACHE = ['/', '/manifest.json', '/icon.png'];
+const CACHE_NAME = 'agomoni-v4';
+const ASSETS_TO_CACHE = ['/', '/manifest.json', '/icon.png', '/bg_image.png'];
 const SHOULD_NEVER_CACHE = [
   '/_next/',
   '/__nextjs_',

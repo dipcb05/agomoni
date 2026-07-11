@@ -3,19 +3,21 @@ import type { Metadata, Viewport } from 'next'
 import { PWAInstallPrompt } from '@/components/PWAInstallPrompt'
 import './globals.css'
 
-const siteTitle = 'আগমনী'
+const siteUrl = 'https://agomoni.vercel.app'
+const siteTitle = 'agomoni'
 const siteDescription =
-  'A countdown app to Durga Puja 2026 and Mahalaya! মা আসছেন!'
+  'agomoni is a fast Durga Puja 2026 countdown for Mahalaya and the main Puja day on October 18, 2026.'
 const siteImage = '/icon.png'
+const absoluteSiteImage = `${siteUrl}${siteImage}`
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://agomoni.vercel.app'),
+  metadataBase: new URL(siteUrl),
   title: {
     default: siteTitle,
-    template: '%s | মা আসছেন',
+    template: '%s | agomoni',
   },
   description: siteDescription,
-  applicationName: 'মা আসছেন',
+  applicationName: 'agomoni',
   generator: 'Next.js',
   manifest: '/manifest.json',
   keywords: [
@@ -37,17 +39,18 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    url: '/',
-    siteName: 'agomoni',
+    url: siteUrl,
+    siteName: siteTitle,
     title: siteTitle,
     description: siteDescription,
     locale: 'bn_BD',
     images: [
       {
-        url: siteImage,
-        width: 1024,
+        url: absoluteSiteImage,
+        secureUrl: absoluteSiteImage,
+        width: 1536,
         height: 1024,
-        alt: 'Agomoni',
+        alt: 'agomoni Durga Puja 2026 countdown',
       },
     ],
   },
@@ -55,12 +58,12 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: siteTitle,
     description: siteDescription,
-    images: [siteImage],
+    images: [absoluteSiteImage],
   },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Agomoni',
+    title: 'agomoni',
   },
   formatDetection: {
     telephone: false,
@@ -102,10 +105,10 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: siteTitle,
-    alternateName: ['Agomoni'],
+    alternateName: ['Agomoni', 'আগমনী'],
     description: siteDescription,
-    url: 'https://agomoni.vercel.app',
-    image: siteImage,
+    url: siteUrl,
+    image: absoluteSiteImage,
     inLanguage: ['bn', 'en'],
   }
 
@@ -126,11 +129,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="canonical" href="https://agomoni.vercel.app" />
+        <link rel="canonical" href={siteUrl} />
+        <link rel="preload" as="image" href="/bg_image.png" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="মা আসছেন" />
+        <meta name="apple-mobile-web-app-title" content="agomoni" />
         <meta name="theme-color" content="#d4a574" />
       </head>
       <body className="antialiased overflow-x-hidden">

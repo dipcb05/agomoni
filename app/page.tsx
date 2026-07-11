@@ -9,8 +9,8 @@ import { NotificationSubscribe } from '@/components/NotificationSubscribe';
 import { Footer } from '@/components/Footer';
 
 export default function Home() {
-  // Durga Puja 2026: October 16, 2026
-  const durgaPujaDate = new Date('2026-10-16T00:00:00+06:00');
+  // Durga Puja 2026 main day (Maha Saptami): October 18, 2026
+  const durgaPujaDate = new Date('2026-10-18T00:00:00+06:00');
   // Mahalaya 2026: October 10, 2026
   const mahalayaDate = new Date('2026-10-10T00:00:00+06:00');
 
@@ -63,7 +63,7 @@ export default function Home() {
             variants={itemVariants}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-2 sm:mb-3 text-balance"
           >
-            মা আসছেন
+            agomoni
           </motion.h1>
         </motion.div>
 
@@ -81,7 +81,7 @@ export default function Home() {
           className="w-full max-w-2xl mb-6 sm:mb-8"
         >
           <CountdownCard
-            title="দুর্গাপূজার আর বাকি"
+            title="agomoni দুর্গাপূজার আর বাকি"
             targetDate={durgaPujaDate}
           />
         </motion.div>

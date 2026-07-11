@@ -20,9 +20,9 @@ const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function(payload) {
   const notification = payload.notification || {};
-  const title = notification.title || 'মা আসছেন';
+  const title = notification.title || 'agomoni';
   const options = {
-    body: notification.body || 'Durga Puja countdown reminder',
+    body: notification.body || 'agomoni Durga Puja countdown reminder',
     icon: '/icon.png',
     badge: '/icon.png',
     data: { url: 'https://agomoni.vercel.app/' }
