@@ -1,51 +1,62 @@
-const FESTIVALS = [
-  { name: 'Mahalaya', date: '2026-10-10T00:00:00+06:00' },
-  { name: 'Durga Puja', date: '2026-10-18T00:00:00+06:00' },
+const FESTIVAL_REMINDERS = [
+  {
+    key: 'mahalaya',
+    name: 'মহালয়া',
+    date: '2026-10-10T00:00:00+06:00',
+    message: 'আগামীকাল মহালয়া। ভোরে চণ্ডীপাঠ শুনতে ভুলবেন না।',
+  },
+  {
+    key: 'shashthi',
+    name: 'ষষ্ঠী',
+    date: '2026-10-17T00:00:00+06:00',
+    message: 'আগামীকাল ষষ্ঠী। মায়ের বোধন ও আমন্ত্রণের প্রস্তুতি নিন।',
+  },
+  {
+    key: 'ashtami',
+    name: 'অষ্টমী',
+    date: '2026-10-19T00:00:00+06:00',
+    message: 'আগামীকাল অষ্টমী। পুষ্পাঞ্জলি ও সন্ধিপূজার সময় দেখে রাখুন।',
+  },
+  {
+    key: 'bisarjan',
+    name: 'বিসর্জন',
+    date: '2026-10-21T00:00:00+06:00',
+    message: 'আগামীকাল দশমী ও বিসর্জন। সিঁদুর খেলা আর বিদায়ের প্রস্তুতি নিন।',
+  },
 ]
 
-const banglaMonthCount = (months: number) => {
-  if (months === 1) {
-    return '১ মাস'
-  }
+const getBangladeshDate = (now: Date) =>
+  new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' }))
 
-  if (months === 2) {
-    return '২ মাস'
-  }
+const getBangladeshDayKey = (date: Date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(
+    date.getDate()
+  ).padStart(2, '0')}`
 
-  return `${months} মাস`
+const getReminderSendDateKey = (festivalDate: string) => {
+  const [year, month, day] = festivalDate
+    .slice(0, 10)
+    .split('-')
+    .map(Number)
+  const date = new Date(year, month - 1, day)
+  date.setDate(date.getDate() - 1)
+
+  return getBangladeshDayKey(date)
 }
 
 export const getDailyNotification = (now = new Date()) => {
-  const bangladeshDate = new Date(
-    now.toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })
+  const todayKey = getBangladeshDayKey(getBangladeshDate(now))
+  const reminders = FESTIVAL_REMINDERS.filter(
+    (festival) => getReminderSendDateKey(festival.date) === todayKey
   )
-  const dayOfMonth = bangladeshDate.getDate()
 
-  if (dayOfMonth !== 10 && dayOfMonth !== 18) {
+  if (reminders.length === 0) {
     return null
   }
-
-  const upcoming = FESTIVALS.map((festival) => {
-    const target = new Date(festival.date)
-    const months =
-      (target.getUTCFullYear() - bangladeshDate.getUTCFullYear()) * 12 +
-      target.getUTCMonth() -
-      bangladeshDate.getUTCMonth()
-
-    return { ...festival, months }
-  }).filter((festival) => festival.months > 0)
-
-  if (upcoming.length === 0) {
-    return null
-  }
-
-  const lines = upcoming.map((festival) => {
-    const prefix = festival.name === 'Mahalaya' ? 'মহালয়ার' : 'পূজোর'
-    return `আর ${banglaMonthCount(festival.months)} আছে ${prefix}`
-  })
 
   return {
     title: 'agomoni',
-    body: lines.join(' • '),
+    body: reminders.map((festival) => festival.message).join(' • '),
+    events: reminders.map((festival) => festival.name),
   }
 }

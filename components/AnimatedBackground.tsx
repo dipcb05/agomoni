@@ -44,11 +44,11 @@ export function AnimatedBackground() {
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover opacity-55"
           quality={60}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black/50" />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-secondary/3 to-primary/8" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/65 to-black/75" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/5 to-primary/10" />
       </div>
 
       {shouldAnimate && (
