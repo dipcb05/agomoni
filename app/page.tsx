@@ -63,7 +63,7 @@ export default function Home() {
             variants={itemVariants}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-2 sm:mb-3 text-balance"
           >
-            agomoni
+            মা আসছেন!
           </motion.h1>
         </motion.div>
 
@@ -81,7 +81,7 @@ export default function Home() {
           className="w-full max-w-2xl mb-6 sm:mb-8"
         >
           <CountdownCard
-            title="agomoni দুর্গাপূজার আর বাকি"
+            title="দুর্গাপূজার আর বাকি"
             targetDate={durgaPujaDate}
           />
         </motion.div>
@@ -92,10 +92,49 @@ export default function Home() {
           className="w-full max-w-2xl mb-6 sm:mb-8"
         >
           <CountdownCard
-            title="শুভ মহালয়া"
+            title="মহালয়ার আর বাকি"
             targetDate={mahalayaDate}
           />
         </motion.div>
+
+        {/* Feature Suggestions */}
+        <motion.section
+          variants={itemVariants}
+          className="w-full max-w-2xl rounded-2xl border border-border bg-card/75 p-5 sm:p-8 md:p-10 sm:backdrop-blur-md"
+        >
+          <div className="mb-6 text-center">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">
+              আরো ফিচার আইডিয়া
+            </p>
+            <h2 className="text-2xl font-bold text-primary md:text-3xl">
+              agomoni-তে এরপর যা যোগ করা যায়
+            </h2>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[
+              { icon: '📅', title: 'পূজার দিনপঞ্জি', text: 'ষষ্ঠী থেকে দশমী পর্যন্ত তিথি, সময় আর ছোট্ট নোট।' },
+              { icon: '🔔', title: 'দিনভিত্তিক রিমাইন্ডার', text: 'মহালয়া, ষষ্ঠী, অষ্টমী আর বিসর্জনের আগে আলাদা নোটিফিকেশন।' },
+              { icon: '🥁', title: 'ঢাক ও মন্ত্র সাউন্ডবোর্ড', text: 'ঢাক, শঙ্খ, উলুধ্বনি আর চণ্ডীপাঠের ছোট অডিও ক্লিপ।' },
+              { icon: '🗺️', title: 'প্যান্ডেল প্ল্যানার', text: 'পছন্দের প্যান্ডেল সেভ করে নিজের ঘোরার রুট বানানো।' },
+            ].map((feature) => (
+              <div
+                key={feature.title}
+                className="rounded-xl border border-primary/15 bg-background/55 p-4 transition-colors duration-300 hover:border-primary/40"
+              >
+                <div className="mb-3 text-2xl" aria-hidden="true">
+                  {feature.icon}
+                </div>
+                <h3 className="mb-2 text-lg font-semibold text-primary">
+                  {feature.title}
+                </h3>
+                <p className="text-sm leading-6 text-muted-foreground">
+                  {feature.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.section>
 
 
       </motion.div>
