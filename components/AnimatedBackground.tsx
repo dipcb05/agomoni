@@ -28,10 +28,10 @@ const generateParticles = (count: number, seed: number = 0): Particle[] => {
 
 export function AnimatedBackground() {
   const prefersReducedMotion = useReducedMotion();
-  const particles = useMemo(() => generateParticles(8, 0), []);
-  const diyas = useMemo(() => generateParticles(4, 100), []);
-  const shiuli = useMemo(() => generateParticles(3, 200), []);
-  const dhunuchiSmoke = useMemo(() => generateParticles(6, 300), []);
+  const particles = useMemo(() => generateParticles(5, 0), []);
+  const diyas = useMemo(() => generateParticles(3, 100), []);
+  const shiuli = useMemo(() => generateParticles(2, 200), []);
+  const dhunuchiSmoke = useMemo(() => generateParticles(4, 300), []);
   const shouldAnimate = !prefersReducedMotion;
 
   return (
@@ -45,7 +45,7 @@ export function AnimatedBackground() {
           priority
           sizes="100vw"
           className="object-cover opacity-55"
-          quality={60}
+          quality={45}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/65 to-black/75" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-secondary/5 to-primary/10" />

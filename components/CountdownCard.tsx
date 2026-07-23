@@ -95,12 +95,12 @@ export function CountdownCard({
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="w-full"
+      className="w-full min-w-0"
     >
-      <div className="bg-card/75 sm:backdrop-blur-md border border-border rounded-2xl p-5 sm:p-8 md:p-10 hover:border-primary/40 transition-colors duration-300">
+      <div className="bg-card/75 sm:backdrop-blur-md border border-border rounded-2xl p-4 sm:p-6 md:p-7 hover:border-primary/40 transition-colors duration-300">
         {/* Title Section */}
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2 text-balance">
+        <div className="text-center mb-5 sm:mb-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-primary mb-2 text-balance">
             {title}
           </h2>
           {subtitle && (
@@ -111,7 +111,7 @@ export function CountdownCard({
         </div>
 
         {/* Countdown Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
           {[
             { label: 'Days', value: countdown.days },
             { label: 'Hours', value: countdown.hours },
@@ -126,14 +126,14 @@ export function CountdownCard({
               animate="visible"
               className="relative"
             >
-              <div className="bg-background/65 sm:backdrop-blur-sm border border-primary/20 rounded-lg p-3 md:p-4 text-center group hover:border-primary/40 transition-colors duration-300">
+              <div className="bg-background/65 sm:backdrop-blur-sm border border-primary/20 rounded-lg p-3 text-center group hover:border-primary/40 transition-colors duration-300">
                 {/* Glow effect on hover */}
                 <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-xl bg-primary/20" />
 
-                <div className="text-2xl md:text-4xl font-bold text-primary font-mono tabular-nums">
+                <div className="text-2xl sm:text-3xl font-bold text-primary font-mono tabular-nums">
                   {String(item.value).padStart(2, '0')}
                 </div>
-                <div className="text-xs md:text-sm text-muted-foreground mt-1 uppercase tracking-wider">
+                <div className="text-[0.65rem] sm:text-xs text-muted-foreground mt-1 uppercase tracking-wide">
                   {item.label}
                 </div>
               </div>

@@ -49,7 +49,7 @@ export default function Home() {
 
         {/* Main content container - scrollable above background */}
         <motion.div
-          className="relative z-20 w-full flex flex-col items-center px-3 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-20 space-y-8 sm:space-y-10"
+          className="relative z-20 flex w-full flex-col items-center space-y-7 px-3 py-6 sm:space-y-9 sm:px-6 sm:py-10 md:py-16 lg:px-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -57,11 +57,11 @@ export default function Home() {
         {/* Hero Section */}
         <motion.div
           variants={itemVariants}
-          className="text-center mb-6 sm:mb-8 md:mb-12"
+          className="mb-4 text-center sm:mb-6 md:mb-8"
         >
           <motion.h1
             variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-2 sm:mb-3 text-balance"
+            className="mb-2 text-balance text-4xl font-bold text-primary sm:mb-3 sm:text-5xl md:text-6xl"
           >
             মা আসছেন!
           </motion.h1>
@@ -70,7 +70,7 @@ export default function Home() {
         {/* Dhol Player Animation */}
         <motion.div
           variants={itemVariants}
-          className="mb-8 sm:mb-10 md:mb-16"
+          className="mb-4 sm:mb-6 md:mb-8"
         >
           <DholPlayer />
         </motion.div>
@@ -78,7 +78,7 @@ export default function Home() {
         {/* Countdown Section */}
         <motion.section
           variants={itemVariants}
-          className="w-full max-w-4xl rounded-3xl border border-border bg-card/80 p-5 shadow-2xl shadow-black/30 sm:p-8 md:p-10 sm:backdrop-blur-md"
+          className="w-full max-w-4xl overflow-hidden rounded-3xl border border-border bg-card/80 p-4 shadow-2xl shadow-black/30 sm:p-6 md:p-8 sm:backdrop-blur-md"
         >
           <div className="mb-6 text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.28em] text-muted-foreground">
@@ -88,7 +88,7 @@ export default function Home() {
               উৎসবের কাউন্টডাউন
             </h2>
           </div>
-          <div className="grid gap-5 lg:grid-cols-2">
+          <div className="grid min-w-0 gap-4 lg:grid-cols-2">
             <CountdownCard
               title="দুর্গাপূজার আর বাকি"
               targetDate={durgaPujaDate}
@@ -103,18 +103,15 @@ export default function Home() {
         {/* Puja Features */}
         <motion.section
           variants={itemVariants}
-          className="w-full max-w-4xl rounded-3xl border border-border bg-card/80 p-5 shadow-2xl shadow-black/30 sm:p-8 md:p-10 sm:backdrop-blur-md"
+          className="w-full max-w-4xl overflow-hidden rounded-3xl border border-border bg-card/80 p-4 shadow-2xl shadow-black/30 sm:p-6 md:p-8 sm:backdrop-blur-md"
         >
           <div className="mb-8 text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.28em] text-muted-foreground">
               পূজার প্রস্তুতি
             </p>
-            <h2 className="text-2xl font-bold text-primary md:text-4xl">
-              agomoni-তে যা থাকছে
-            </h2>
           </div>
 
-          <div className="grid gap-5">
+          <div className="grid gap-4">
             <article className="rounded-2xl border border-primary/15 bg-background/55 p-5">
               <div className="mb-4 flex items-center gap-3">
                 <span className="text-3xl" aria-hidden="true">📅</span>
@@ -141,20 +138,6 @@ export default function Home() {
               </div>
             </article>
 
-            <article className="rounded-2xl border border-primary/15 bg-background/55 p-5">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl" aria-hidden="true">🔔</span>
-                  <div>
-                    <h3 className="text-2xl font-bold text-primary">দিনভিত্তিক রিমাইন্ডার</h3>
-                    <p className="text-sm leading-6 text-muted-foreground">মহালয়া, ষষ্ঠী, অষ্টমী আর বিসর্জনের আগে আলাদা নোটিফিকেশন পাঠানো হবে।</p>
-                  </div>
-                </div>
-                <p className="rounded-full border border-primary/20 bg-card/70 px-4 py-2 text-sm font-semibold text-primary">
-                  🔔 Notification on করুন
-                </p>
-              </div>
-            </article>
 
             <article className="rounded-2xl border border-primary/15 bg-background/55 p-5">
               <div className="mb-4 flex items-center gap-3">
@@ -171,6 +154,7 @@ export default function Home() {
                   title="মহালয়া শুনুন - চণ্ডীপাঠ"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
+                  loading="lazy"
                 />
               </div>
             </article>
