@@ -9,7 +9,7 @@ export function Footer() {
           rel="noreferrer"
           className="font-medium text-primary underline-offset-4 transition-colors hover:text-accent hover:underline"
         >
-          dip chakraborty
+          Dip Chakraborty
         </a>
         . You can contribute there{' '}
         <a
